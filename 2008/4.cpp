@@ -1,10 +1,21 @@
 #include<iostream>
 #include<string>
+#include<cstdlib>
 using namespace std;
 
+int list[5000][12][31] = {0};
+int month[2][12] = {
+    31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31,
+    31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31,
+};
+
 void split(string s, int a[]) {
-    a[0] = atoi(s.substr(0, 4).c_str());
-    s = s.substr(5);
+    for(int i = 0; i < 5; i++)
+        if(s[i] == '-'){
+            a[0] = atoi(s.substr(0, i).c_str());
+            s = s.substr(i+1);
+        }
+    
     if(s[1] == '-') {
         a[1] = atoi(s.substr(0,1).c_str());
         a[2] = atoi(s.substr(2).c_str());
@@ -15,108 +26,57 @@ void split(string s, int a[]) {
     }
 }
 
+void create() {
+    int count = 1;
+    int flag = 0;
+    for(int y = 0; y < 5000; y++) {
+        if(!((y + 1) % 4 == 0 && (y + 1) % 100 != 0) || (y + 1) % 400 == 0)
+            flag = 0;
+        else
+            flag = 1;
+        for(int m = 0; m < 12; m++)
+            for(int d = 0; d < 31; d++) 
+                if(d < month[flag][m])
+                    list[y][m][d] = count++;
+                else 
+                    break; 
+    }
+}
+
 int main() {
+    create();
     int a;
-    cout << "请输入模式：";
-    cin >> a;
-    cout << endl;
     while(1) {
+        cout << "请选择模式：";
+        cin >> a;
+        cout << endl;
         if(a == 1) {
             string date1, date2;
-            int days = 0;
             cout << "请输入两个日期：";
             cin >> date1 >> date2;
-            int da1[3], da2[3];
-            split(date1, da1);
-            split(date2, da2);
-            if(da2[0] - da1[0] > 1) {
-                for(int i = da1[0]; i < da2[0] - 1; i++) {
-                    if(i % 4 == 0 && (da1[1] == 1 || (da1[1] == 2 && da1[2] < 29)))
-                        days += 366;
-                    else if((i + 1) % 4 == 0 && da1[1] > 2)
-                        days += 366;
-                    else 
-                        days += 365;
-                }
-            }
-            switch(da1[1]) {
-                case 1:
-                    days += 31;
-                case 2:
-                    if((da2[0] - 1) % 4 == 0)
-                        days += 29;
-                    else
-                        days += 28;
-                case 3:
-                    days += 31;
-                case 4:
-                    days += 30;
-                case 5:
-                    days += 31;
-                case 6:
-                    days += 30;
-                case 7:
-                    days += 31;
-                case 8: 
-                    days += 31;
-                case 9:
-                    days += 30;
-                case 10:
-                    days += 31;
-                case 11:
-                    days += 30;
-                case 12:
-                    days += 31;
-                default: 
-                    break;
-            }
-            days -= da1[2];
-            switch(da2[1]) {
-                case 11:
-                    days += 31;
-                case 10:
-                    days += 30;
-                case 9:
-                    days += 31;
-                case 8:
-                    days += 30;
-                case 7: 
-                    days += 31;
-                case 6:
-                    days += 31;
-                case 5:
-                    days += 30;
-                case 4:
-                    days += 31;
-                case 3:
-                    days += 30;
-                case 2:
-                    days += 31;
-                case 1:
-                    if((da2[0]) % 4 == 0)
-                        days += 29;
-                    else
-                        days += 28;
-                default: 
-                    break;
-            }
-            days += da2[2];
-            cout << "\nall: " << days << "days" << endl;
+            int d1[3], d2[3];
+            split(date1, d1);
+            split(date2, d2);
+            cout << "\nday is " << list[d2[0] - 1][d2[1] - 1][d2[2] - 1] -  list[d1[0] - 1][d1[1] - 1][d1[2] - 1] << endl;
         }
         else if(a == 2) {
-            string date1;
+            string date;
             int days;
-            int date[3];
             cout << "请输入日期和天数：";
-            cin >> date1 >> days;
-            if(date[1] == 1 || date[1] == 3 || date[1] == 5 || date[1] == 7 || date[1] == 8 || date[1] == 10 || date[1] == 12)
-            split(date1, date);
-            while(1) {
-                switch(date[1]) {
-                    case :1
-
-                }
-            }
+            cin >> date >> days;
+            int d[3];
+            split(date, d);
+            int count = list[d[0] - 1][d[1] - 1][d[2] - 1] + days;
+            for(int judge = 1, y = d[0] - 1 + days / 366; y < 5000 && judge; y++)
+                for(int m = d[1] - 1 + (days % 366) / 31; m < 12 && judge; m++)
+                    for(int day = 0; day < 31 && judge; day++)
+                        if(list[y][m][day] == count) {
+                            cout << "date is " << y + 1 << "-" << m + 1 << "-" << day + 1 << endl;
+                            judge = 0;
+                        }
         }
+        else
+            break;
     }
+    return 0;
 }
