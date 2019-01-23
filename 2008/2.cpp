@@ -1,3 +1,5 @@
+// fstreamÎÄ¼ş·ÃÎÊ
+
 #include<iostream>
 #include<fstream>
 #include<string>

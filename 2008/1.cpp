@@ -1,3 +1,6 @@
+// algorithm标准库
+// string库
+
 #include<iostream>
 #include<string>
 #include<vector>
@@ -11,15 +14,12 @@ int main() {
     while(1) {
         cout << "请输入姓名：";
         cin >> name;
-        cout << "\n" << endl;
-        if(name == "#")
-            break;
-        else {
+        while(name != "#") {
             names.push_back(name);
-            sort(names.begin(), names.end());
-            for(i = names.begin(); i != names.end(); i++)
-                cout << *i << endl;
+            cin >> name;
         }
-           
+        sort(names.begin(), names.end());
+        for(i = names.begin(); i != names.end(); i++)
+            cout << *i << endl;
     }
 }

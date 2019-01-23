@@ -1,3 +1,6 @@
+// 注意操作符和函数的重载
+// 掌握cmath库
+
 #include<iostream>
 #include<cmath>
 using namespace std;

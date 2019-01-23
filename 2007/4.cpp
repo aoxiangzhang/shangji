@@ -1,3 +1,6 @@
+// algorithm sortµÈËã·¨
+// cstring ºÍ string²»Í¬£¬ c++11stringºÍstring²»Í¬£¬stringÊÇ¶ÔÏó£¬ÔÚcÓïÑÔº¯Êıstoi£¬ strcpyµÈÖĞ²»ÄÜ×÷Îª²ÎÊıÊäÈë£¬ĞèÒªcstringÖĞc_str×ª»¯Îª´®
+
 #include<iostream>
 #include<vector>
 #include<algorithm>
@@ -20,11 +23,6 @@ Student::Student(){
 void Student::setStudent(int nu, char *na) {
     num = nu;
     strcpy(name, na);
-//    int i;
-//    for(i = 0; i < 10 && na[i] != 0; i++){
-//    	name[i] = na[i];
-//	}
-//	name[i] = 0;
 }
 
 bool com1(Student a, Student b) {
@@ -45,31 +43,31 @@ int main()
     int num;
     char name[10];
     while(true) {
-        cout << "è¯·è¾“å…¥å‘½ä»¤ï¼" << endl;
+        cout << "ÇëÊäÈëÃüÁî£º" << endl;
         cin >> order;
         switch(order) {
             case 1:
-                cout << "è¯·è¾“å…¥å­¦ç”Ÿå§“åï¼š";
+                cout << "ÇëÊäÈëĞÕÃû£º";
                 cin >> name;
-                cout << "\nè¯·è¾“å…¥å­¦å·ï¼š";
+                cout << "\nÇëÊäÈëÑ§ºÅ£º";
                 cin >> num;
                 cout << endl;
                 stu.setStudent(num, name);
                 stus.push_back(stu);
                 break;
             case 2:
-                cout << "è¯·è¾“å…¥å­¦å·ï¼š";
+                cout << "ÇëÊäÈëÑ§ºÅ£º";
                 cin >> num;
                 for(s = stus.begin(); s != stus.end(); s++) {
                     if(s->num == num) {
-                        cout << "å§“åï¼š" << s->name << " å­¦å·ï¼š" << s->num << endl;
+                        cout << "ĞÕÃû£º" << s->name << " Ñ§ºÅ£º" << s->num << endl;
                         break;
                     }
                 }
-                cout << "æŸ¥æ‰¾ç»“æŸ" << endl;
+                cout << "²éÕÒÍê³É£¡" << endl;
                 break;
             case 3:
-                cout << "è¯·é€‰æ‹©æ’åºæ–¹å¼ï¼š";
+                cout << "ÇëÑ¡ÔñÅÅĞò·½Ê½£º";
                 cin >> order;
                 cout << endl;
                 if(order == 1){
@@ -79,7 +77,7 @@ int main()
                     sort(stus.begin(), stus.end(), com2);
                 }
                 else {
-                    cout << "è¾“å…¥æ— æ•ˆï¼" << endl;
+                    cout << "ÊäÈëÎŞĞ§£¡" << endl;
                     break;
                 }
                 for(s = stus.begin(); s != stus.end(); s++) {
@@ -87,7 +85,7 @@ int main()
                 }
                 break;
             default:
-                cout << "è¾“å…¥æ— æ•ˆï¼" << endl;
+                cout << "ÊäÈëÎŞĞ§£¡" << endl;
                 break;
         }
         if(order == 4)
