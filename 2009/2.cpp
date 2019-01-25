@@ -1,3 +1,6 @@
+// ÎÄ¼ş¶ÁĞ´
+// ÉóÌâ
+
 #include<iostream>
 #include<fstream>
 #include<string>
@@ -7,6 +10,7 @@ int main() {
     string a[4];
     string name;
     int size = 0;
+    ofstream out("Name.txt");
     while(cin >> name) {
         if(name == "#")
             break;
@@ -19,7 +23,6 @@ int main() {
             cout << i+1 << "=" << a[i] << " ";
         cout << endl;
     }
-    ofstream out("Name.txt");
     for(int i = 0; i < size; i++)
         out << i+1 << "=" << a[i] << " ";
     out.close();

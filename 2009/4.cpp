@@ -44,5 +44,5 @@ int main() {
     for(vector<c>::iterator v = words_vec.begin(); v != words_vec.end(); v++) {
         cout << v->first << " " << v->second << endl;
     }
-
+    return 0;
 }
