@@ -1,4 +1,6 @@
 // substr第二个参数是长度。不是结尾下标
+// stl
+// 思路不等于代码
 
 #include<iostream>
 #include<string>
