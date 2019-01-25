@@ -1,4 +1,4 @@
-// 字符串操作
+// 字符串操作,int转string，string转int，c++11不同？？？？？？
 // stl
 
 #include<iostream>

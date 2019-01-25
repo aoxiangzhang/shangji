@@ -1,3 +1,5 @@
+// printf scanf สนำร
+
 #include<iostream>
 #include<string>
 #include<vector>
