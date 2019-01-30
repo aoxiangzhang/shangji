@@ -1,5 +1,7 @@
 // pair定义使用
 // 对map的value进行排序需要转化成vector
+// 审题注意输入格式
+// find()函数用法，未查询到结果返回int型string::npos
 
 #include<iostream>
 #include<vector>
@@ -26,9 +28,18 @@ int main() {
     while(getline(cin, in)) {
         int flag = in.find(' ');
         student &s = students[in.substr(0, flag)];
-        s.grades.push_back(stod(in.substr(flag + 1)));
-        s.average = (s.average * (s.grades.size() - 1) + stod(in.substr(flag + 1))) / s.grades.size();
-        if(stod(in.substr(flag + 1)) < 60)
+        in = in.substr(flag + 1);
+        while(in.find(' ') != string::npos) {
+            flag = in.find(' ');
+            s.grades.push_back(stod(in.substr(flag + 1)));
+            s.average = (s.average * (s.grades.size() - 1) + stod(in.substr(flag + 1))) / s.grades.size();
+            if(stod(in.substr(flag + 1)) < 60)
+                s.failed++;
+            in = in.substr(flag + 1);
+        }
+        s.grades.push_back(stod(in));
+        s.average = (s.average * (s.grades.size() - 1) + stod(in)) / s.grades.size();
+        if(stod(in) < 60)
             s.failed++;
         vector<p> ss(students.begin(), students.end());
         sort(ss.begin(), ss.end(), cmp);
