@@ -5,28 +5,18 @@
 #include<string>
 using namespace std;
 
-struct c {
+class c {
+    public:
     int d;
 };
 
-void a(c *b) {
-    b->d = 2;
-    b = NULL;
+void a(c*b) {
+    (*b).d = 2;
 }
 
 int main() {
-
-    set<int, int> h;
-    h.insert(1,1);
-    h.insert(1,2);
-    h.insert(2,2);
-    for(set<int, int>::iterator i = h.begin(); i != h.end(); i++) {
-        cout << *i << endl;
-    }
-    // map<c, c> g;
-    // c f[3];
-    // c *e = new c;
-    // e->d = 1;
-    // a(e);
-    // cout << e->d;
+    c e;
+    e.d = 1;
+    a(&e);
+    cout << e.d;
 }
