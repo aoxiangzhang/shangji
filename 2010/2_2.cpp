@@ -1,6 +1,7 @@
 // substr第二个参数是长度。不是结尾下标
 // stl
 // 思路不等于代码
+// 测试数据要多样，代码和思路细节对应
 
 #include<iostream>
 #include<string>
@@ -53,7 +54,8 @@ void initOperator() {
     osp ['#'] = 0; osp ['('] = 1; osp['+'] = osp['-'] = 3; osp['*'] = osp['/'] = 5; osp[')'] = 6;
 }
 
-double postCal(queue<string>& post, stack<double>& num) {
+double postCal(queue<string>& post) {
+    stack<double> num;
     while(!post.empty()) {
         if(post.front() == "+" || post.front() == "-" || post.front() == "*" || post.front() == "/") {
             double a = num.top();
@@ -62,25 +64,23 @@ double postCal(queue<string>& post, stack<double>& num) {
             num.pop();
             switch(post.front()[0]) {
                 case '+':
-                    num.push(a + b);
+                    num.push(b + a);
                     break;
                 case '-':
-                    num.push(a - b);
+                    num.push(b - a);
                     break;
                 case '*':
-                    num.push(a * b);
+                    num.push(b * a);
                     break;
                 case '/':
-                    num.push(a / b);
+                    num.push(b / a);
+                    break;
                 default:
                     break;
             }
         }
-        else {
-            // cout << "is empty" << post.empty() << "push num" << post.front();
+        else
             num.push(stod(post.front()));
-            
-        }
         post.pop();
     }
     return num.top();
@@ -89,15 +89,9 @@ double postCal(queue<string>& post, stack<double>& num) {
 int main() {
     string s;
     queue<string> post;
-    stack<double> num;
     initOperator();
     cin >> s;
     intopost(s, post);
-    // while(!post.empty()) {
-    //     cout << post.front() << '|';
-    //     post.pop();
-    // }
-    
-    cout << postCal(post, num);
+    cout << postCal(post);
     return 0;
 }
